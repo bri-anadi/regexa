@@ -19,29 +19,22 @@ Regexa is a comprehensive Python library that simplifies working with regular ex
 ```bash
 pip install regexa
 ```
-# Quick Start
+
+# Basic Usage
+## Initialization
 ```python
 from regexa import Regexa
-```
-## Initialize
-```
+
 rx = Regexa()
 ```
-# Basic Usage
-## Example text for demonstration
-```python
-text = """
-Contact me at john.doe@example.com or call +6281234567890
-Visit our website: https://example.com
-Follow us @company #tech #python
-Meeting on 25/12/2023 and 2023-12-31
-Credit card: 4111111111111111
-"""
-```
+
 ## 1. Email validation
 ```python
 email = "john.doe@example.com"
 print(f"Is email valid? {rx.match_email(email)}")
+
+# Result: Is email valid? True
+# Comment: The email is valid as it follows the standard email format
 ```
 
 ## 2. Password strength check
@@ -50,14 +43,37 @@ password = "MyStr0ng#Pass"
 strength = rx.validate_password_strength(password)
 print(f"Password strength: {strength['strength']}")
 print(f"Password feedback: {strength['feedback']}")
+
+# Result:
+# Password strength: Excellent
+# Password feedback: ['Password length sufficient', 'Has uppercase letters', 'Has lowercase letters', 'Has numbers', 'Has special characters']
+# Comment: The password is excellent because it meets all criteria: length, uppercase, lowercase, numbers, and special characters
 ```
 
 ## 3. Extract all data from text
 ```python
+text = """
+Contact me at john.doe@example.com or call +6281234567890
+Visit our website: https://example.com
+Follow us @company #tech #python
+Meeting on 25/12/2023 and 2023-12-31
+Credit card: 4111111111111111
+"""
+
 extracted = rx.extract_all(text)
 print("\nExtracted data:")
 for key, value in extracted.items():
     print(f"{key}: {value}")
+
+# Result:
+# emails: ['john.doe@example.com']
+# phones: ['+6281234567890']
+# urls: ['https://example.com']
+# hashtags: ['#tech', '#python']
+# mentions: ['@company']
+# numbers: ['6281234567890', '25', '12', '2023', '2023', '12', '31']
+# words: ['Contact', 'me', 'at', 'john', 'doe', 'example', 'com', ...]
+# Comment: Successfully extracted all different types of data from the text
 ```
 
 ## 4. Date extraction
@@ -66,12 +82,20 @@ dates = rx.extract_dates(text)
 print("\nFound dates:")
 for date in dates:
     print(f"Date: {date['date']} (Format: {date['format']})")
+
+# Result:
+# Date: 25/12/2023 (Format: dd/mm/yyyy)
+# Date: 2023-12-31 (Format: yyyy-mm-dd)
+# Comment: Detected dates in different formats
 ```
 
 ## 5. URL validation
 ```python
 url = "https://example.com"
 print(f"\nIs URL valid? {rx.match_url(url)}")
+
+# Result: Is URL valid? True
+# Comment: URL is valid as it contains the correct protocol and domain format
 ```
 
 ## 6. Credit card validation
@@ -79,12 +103,18 @@ print(f"\nIs URL valid? {rx.match_url(url)}")
 card_number = "4111111111111111"
 card_validation = rx.validate_credit_card(card_number)
 print(f"\nCredit card validation: {card_validation}")
+
+# Result: Credit card validation: {'is_valid': True, 'card_type': 'visa', 'number': '4111111111111111'}
+# Comment: Detected as a valid Visa card number
 ```
 
 ## 7. Clean text
 ```python
 cleaned_text = rx.clean_text("Hello, World! @#$%")
 print(f"\nCleaned text: {cleaned_text}")
+
+# Result: Cleaned text: Hello World
+# Comment: Removed all special characters, leaving only alphanumeric characters and spaces
 ```
 
 ## 8. IP validation
@@ -92,6 +122,9 @@ print(f"\nCleaned text: {cleaned_text}")
 ip = "192.168.1.1"
 ip_validation = rx.validate_ip(ip)
 print(f"\nIP validation: {ip_validation}")
+
+# Result: IP validation: {'is_valid': True, 'type': 'IPv4', 'private': True}
+# Comment: Valid IPv4 address identified as a private IP address
 ```
 
 # Documentation
