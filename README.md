@@ -23,37 +23,77 @@ pip install regexa
 ```python
 from regexa import Regexa
 ```
-# Initialize
+## Initialize
 ```
 rx = Regexa()
-
-# Email validation
-is_valid = rx.match_email("user@example.com")
-print(is_valid)  # True
-
-# Password strength check
-result = rx.validate_password_strength("MyStr0ng#Pass")
-print(result)
-# {
-#     'score': 5,
-#     'strength': 'Excellent',
-#     'feedback': ['Password length sufficient', 'Has uppercase', ...],
-#     'is_valid': True
-# }
-
-# Extract data from text
-data = rx.extract_all("Contact me at user@email.com or #support")
-print(data)
-# {
-#     'emails': ['user@email.com'],
-#     'hashtags': ['#support'],
-#     'phones': [],
-#     'urls': [],
-#     'mentions': [],
-#     'numbers': [],
-#     'words': ['Contact', 'me', 'at', 'user', 'email', 'com', 'or', 'support']
-# }
 ```
+# Basic Usage
+## Example text for demonstration
+```python
+text = """
+Contact me at john.doe@example.com or call +6281234567890
+Visit our website: https://example.com
+Follow us @company #tech #python
+Meeting on 25/12/2023 and 2023-12-31
+Credit card: 4111111111111111
+"""
+```
+## 1. Email validation
+```python
+email = "john.doe@example.com"
+print(f"Is email valid? {rx.match_email(email)}")
+```
+
+## 2. Password strength check
+```python
+password = "MyStr0ng#Pass"
+strength = rx.validate_password_strength(password)
+print(f"Password strength: {strength['strength']}")
+print(f"Password feedback: {strength['feedback']}")
+```
+
+## 3. Extract all data from text
+```python
+extracted = rx.extract_all(text)
+print("\nExtracted data:")
+for key, value in extracted.items():
+    print(f"{key}: {value}")
+```
+
+## 4. Date extraction
+```python
+dates = rx.extract_dates(text)
+print("\nFound dates:")
+for date in dates:
+    print(f"Date: {date['date']} (Format: {date['format']})")
+```
+
+## 5. URL validation
+```python
+url = "https://example.com"
+print(f"\nIs URL valid? {rx.match_url(url)}")
+```
+
+## 6. Credit card validation
+```python
+card_number = "4111111111111111"
+card_validation = rx.validate_credit_card(card_number)
+print(f"\nCredit card validation: {card_validation}")
+```
+
+## 7. Clean text
+```python
+cleaned_text = rx.clean_text("Hello, World! @#$%")
+print(f"\nCleaned text: {cleaned_text}")
+```
+
+## 8. IP validation
+```python
+ip = "192.168.1.1"
+ip_validation = rx.validate_ip(ip)
+print(f"\nIP validation: {ip_validation}")
+```
+
 # Documentation
 ## Email Validation
 ```python
